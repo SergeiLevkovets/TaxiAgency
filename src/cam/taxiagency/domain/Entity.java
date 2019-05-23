@@ -1,4 +1,4 @@
-package com.taxiagency.domain;
+package cam.taxiagency.domain;
 
 public interface Entity {
     String getId();
