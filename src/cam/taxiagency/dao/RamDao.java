@@ -2,36 +2,49 @@ package cam.taxiagency.dao;
 
 import cam.taxiagency.domain.Entity;
 
-import java.util.List;
+import java.util.*;
 
-public class RamDao implements Dao{
-    @Override
-    public void save(Entity obj) {
+public class RamDao<T extends Entity> implements Dao<T>{
 
+    private Map<String, T> ram;
+
+    public RamDao(){
+        this.ram = new HashMap<>();
     }
 
     @Override
-    public void update(Entity obj) {
-
+    public void save(T obj) {
+        ram.put(obj.getId(), obj);
     }
 
     @Override
-    public void upsert(Entity obj) {
-
+    public void update(T obj) {
+        ram.put(obj.getId(), obj);
     }
 
     @Override
-    public void delete(Entity obj) {
-
+    public void upsert(T obj) {
+        ram.put(obj.getId(), obj);
     }
 
     @Override
-    public Entity findById(String id) {
-        return null;
+    public void delete(T obj) {
+        ram.remove(obj.getId());
+    }
+
+    @Override
+    public T findById(String id) {
+        return ram.get(id);
     }
 
     @Override
     public List findAll() {
-        return null;
+        List<T> list = new ArrayList<>();
+        Set<String> keys = ram.keySet();
+        for (String key : keys){
+            T obj = ram.get(key);
+            list.add(obj);
+        }
+        return list;
     }
 }
