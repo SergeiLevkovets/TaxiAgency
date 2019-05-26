@@ -1,8 +1,9 @@
-package cam.taxiagency.dao;
+package com.taxiagency.dao;
 
-import cam.taxiagency.domain.Driver;
+import com.taxiagency.domain.Driver;
 
 public class DriverRamDao extends RamDao implements DriverDao{
+
     @Override
     public Driver findByName(String name) {
         return null;

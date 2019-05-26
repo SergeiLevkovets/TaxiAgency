@@ -1,4 +1,4 @@
-package cam.taxiagency.dao;
+package com.taxiagency.dao;
 
 public class TripRamDao extends RamDao implements TripDao{
 }

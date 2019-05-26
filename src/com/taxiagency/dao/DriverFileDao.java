@@ -1,6 +1,6 @@
-package cam.taxiagency.dao;
+package com.taxiagency.dao;
 
-import cam.taxiagency.domain.Driver;
+import com.taxiagency.domain.Driver;
 
 public class DriverFileDao extends FileDao implements DriverDao{
     @Override

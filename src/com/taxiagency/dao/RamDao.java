@@ -1,6 +1,6 @@
-package cam.taxiagency.dao;
+package com.taxiagency.dao;
 
-import cam.taxiagency.domain.Entity;
+import com.taxiagency.domain.Entity;
 
 import java.util.*;
 
@@ -38,7 +38,7 @@ public class RamDao<T extends Entity> implements Dao<T>{
     }
 
     @Override
-    public List findAll() {
+    public List<T> findAll() {
         List<T> list = new ArrayList<>();
         Set<String> keys = ram.keySet();
         for (String key : keys){

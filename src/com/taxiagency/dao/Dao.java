@@ -1,6 +1,6 @@
-package cam.taxiagency.dao;
+package com.taxiagency.dao;
 
-import cam.taxiagency.domain.Entity;
+import com.taxiagency.domain.Entity;
 
 import java.util.List;
 

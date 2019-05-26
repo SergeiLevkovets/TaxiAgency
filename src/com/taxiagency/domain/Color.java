@@ -1,4 +1,4 @@
-package cam.taxiagency.domain;
+package com.taxiagency.domain;
 
 public enum Color {
     BLACk,
