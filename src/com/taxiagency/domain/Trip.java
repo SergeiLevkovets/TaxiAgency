@@ -1,6 +1,8 @@
 package com.taxiagency.domain;
 
-public class Trip implements Entity {
+import java.io.Serializable;
+
+public class Trip implements Entity, Serializable {
     private String id;
     private String route;
     private Driver driver;

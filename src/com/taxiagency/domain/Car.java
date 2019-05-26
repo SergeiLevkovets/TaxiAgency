@@ -1,6 +1,8 @@
 package com.taxiagency.domain;
 
-public class Car implements Entity {
+import java.io.Serializable;
+
+public class Car implements Entity, Serializable {
     private String id;
     private Color color;
     private String number;

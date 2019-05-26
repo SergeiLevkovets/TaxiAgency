@@ -9,9 +9,6 @@ public class CarFileDao extends FileDao implements CarDao {
 
     String fileName = "com/taxiagency/File/CarFileDao.txt";
 
-    public CarFileDao(String fileName) {
-        super(fileName);
-    }
 
     @Override
     public List<Car> findByNumber(String number) {

@@ -70,5 +70,28 @@ public class Main {
         System.out.println(tripRamDao.findByPassenger(passenger1));
         System.out.println(tripRamDao.getRam());
 
+
+        //Сохранение в файл
+
+        FileDao<Driver> fileDao = new DriverFileDao();
+        fileDao.save(driver2);
+        fileDao.save(driver1);
+
+        System.out.println(fileDao.findById("1dr"));
+
+        System.out.println(fileDao.findAll());
+
+        /*DriverFileDao driverFileDao = new DriverFileDao();
+        driverFileDao.save(driver1);
+
+        CarFileDao carFileDao = new CarFileDao();
+        carFileDao.save(car1);
+
+        PassangerFileDao passangerFileDao = new PassangerFileDao();
+        passangerFileDao.save(passenger1);
+
+        TripFileDao tripFileDao = new TripFileDao();
+        tripFileDao.save(trip1);
+*/
     }
 }

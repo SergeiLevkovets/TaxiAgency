@@ -1,6 +1,8 @@
 package com.taxiagency.domain;
 
-public class Driver implements Entity {
+import java.io.Serializable;
+
+public class Driver implements Entity, Serializable {
 
     private String id;
     private String name;

@@ -1,6 +1,8 @@
 package com.taxiagency.domain;
 
-public class Passenger implements Entity {
+import java.io.Serializable;
+
+public class Passenger implements Entity, Serializable {
     private String id;
     private String name;
     private String mobilePhone;
