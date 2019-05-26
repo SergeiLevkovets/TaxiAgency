@@ -4,7 +4,7 @@ import com.taxiagency.domain.Driver;
 
 import java.util.List;
 
-public class DriverFileDao extends FileDao implements DriverDao{
+public class DriverFileDao extends FileDao implements DriverDao {
     @Override
     public List<Driver> findByName(String name) {
         return null;

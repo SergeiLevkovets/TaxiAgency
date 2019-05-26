@@ -1,6 +1,6 @@
 package com.taxiagency.domain;
 
-public class Trip implements Entity{
+public class Trip implements Entity {
     private String id;
     private String route;
     private Driver driver;
@@ -29,12 +29,12 @@ public class Trip implements Entity{
     public String toString() {
         return
                 "id: " + id +
-                "; route: " + route +
-                "; driver: " + driver +
-                "; car: " + car +
-                "; passenger: " + passenger +
-                "; durationMins: " + durationMins +
-                "; distance: " + distance ;
+                        "; route: " + route +
+                        "; driver: " + driver +
+                        "; car: " + car +
+                        "; passenger: " + passenger +
+                        "; durationMins: " + durationMins +
+                        "; distance: " + distance;
     }
 
     public String getRoute() {

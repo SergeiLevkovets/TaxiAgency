@@ -1,6 +1,6 @@
 package com.taxiagency.domain;
 
-public class Passenger implements Entity{
+public class Passenger implements Entity {
     private String id;
     private String name;
     private String mobilePhone;
@@ -14,7 +14,7 @@ public class Passenger implements Entity{
     @Override
     public String toString() {
         return "id: " + id + "; name: '" + name +
-                "; mobilePhone: " + mobilePhone ;
+                "; mobilePhone: " + mobilePhone;
     }
 
     public String getName() {

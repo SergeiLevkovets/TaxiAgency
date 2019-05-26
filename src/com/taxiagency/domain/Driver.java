@@ -1,6 +1,6 @@
 package com.taxiagency.domain;
 
-public class Driver implements Entity{
+public class Driver implements Entity {
 
     private String id;
     private String name;
@@ -12,7 +12,7 @@ public class Driver implements Entity{
 
     @Override
     public String toString() {
-        return "id: " + id + "; name: " + name ;
+        return "id: " + id + "; name: " + name;
     }
 
     public String getName() {

@@ -1,8 +1,6 @@
 package com.taxiagency;
 
 import com.taxiagency.dao.*;
-import com.taxiagency.dao.DriverRamDao;
-import com.taxiagency.dao.RamDao;
 import com.taxiagency.domain.*;
 
 import java.util.List;
@@ -56,9 +54,9 @@ public class Main {
         System.out.println(carRamDao.findByNumber("am45271"));
         System.out.println(carRamDao.getRam());
 
-        Trip trip1 = new Trip("1t", "Minsk", driver1, car1, passenger1, 1, 10);
-        Trip trip2 = new Trip("2t", "Pinsk", driver2, car2, passenger2, 2, 100);
-        Trip trip3 = new Trip("3t", "Gdansk", driver3, car3, passenger3, 3, 300);
+        Trip trip1 = new Trip("1t", "Minsk", driver1, car1, passenger1, 10, 10);
+        Trip trip2 = new Trip("2t", "Pinsk", driver2, car2, passenger2, 70, 100);
+        Trip trip3 = new Trip("3t", "Gdansk", driver3, car3, passenger3, 240, 300);
 
         TripRamDao tripRamDao = new TripRamDao();
         tripRamDao.save(trip1);
@@ -71,6 +69,6 @@ public class Main {
         System.out.println(tripRamDao.findByDriver(driver2));
         System.out.println(tripRamDao.findByPassenger(passenger1));
         System.out.println(tripRamDao.getRam());
-        
+
     }
 }

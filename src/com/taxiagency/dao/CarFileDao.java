@@ -5,7 +5,7 @@ import com.taxiagency.domain.Color;
 
 import java.util.List;
 
-public class CarFileDao extends FileDao implements CarDao{
+public class CarFileDao extends FileDao implements CarDao {
 
     String fileName = "com/taxiagency/File/CarFileDao.txt";
 

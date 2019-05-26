@@ -8,12 +8,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class FileDao<T extends Entity> implements Dao<T>{
+public class FileDao<T extends Entity> implements Dao<T> {
 
     private File file;
     private String fileName;
 
-    public FileDao(){
+    public FileDao() {
         this.file = new File("com/taxiagency/File/FileDao.txt");
     }
 
@@ -21,7 +21,7 @@ public class FileDao<T extends Entity> implements Dao<T>{
         this.fileName = fileName;
         this.file = new File(this.fileName);
         try {
-            if (!this.file.exists()){
+            if (!this.file.exists()) {
                 this.file.createNewFile();
             }
         } catch (IOException e) {
@@ -33,7 +33,7 @@ public class FileDao<T extends Entity> implements Dao<T>{
     public void save(Entity obj) {
 
         try (FileWriter fw = new FileWriter(fileName, true);
-             BufferedWriter bw = new BufferedWriter(fw)){
+             BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(obj.toString() + System.getProperty("line.separator"));
         } catch (IOException e) {
             e.printStackTrace();

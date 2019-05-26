@@ -1,6 +1,6 @@
 package com.taxiagency.domain;
 
-public class Car implements Entity{
+public class Car implements Entity {
     private String id;
     private Color color;
     private String number;
@@ -13,9 +13,9 @@ public class Car implements Entity{
 
     @Override
     public String toString() {
-        return "id: " + id+
+        return "id: " + id +
                 "; color: " + color +
-                "; number: " + number ;
+                "; number: " + number;
     }
 
     public Color getColor() {

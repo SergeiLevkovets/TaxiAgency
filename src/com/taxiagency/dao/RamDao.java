@@ -4,11 +4,11 @@ import com.taxiagency.domain.Entity;
 
 import java.util.*;
 
-public class RamDao<T extends Entity> implements Dao<T>{
+public class RamDao<T extends Entity> implements Dao<T> {
 
     private Map<String, T> ram;
 
-    public RamDao(){
+    public RamDao() {
         this.ram = new HashMap<>();
     }
 
@@ -41,7 +41,7 @@ public class RamDao<T extends Entity> implements Dao<T>{
     public List<T> findAll() {
         List<T> list = new ArrayList<>();
         Set<String> keys = ram.keySet();
-        for (String key : keys){
+        for (String key : keys) {
             T obj = ram.get(key);
             list.add(obj);
         }

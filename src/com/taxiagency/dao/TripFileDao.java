@@ -7,7 +7,7 @@ import com.taxiagency.domain.Trip;
 
 import java.util.List;
 
-public class TripFileDao extends FileDao implements TripDao{
+public class TripFileDao extends FileDao implements TripDao {
     @Override
     public List<Trip> findByRoute(String route) {
         return null;
