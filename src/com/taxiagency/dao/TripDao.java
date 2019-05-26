@@ -5,10 +5,12 @@ import com.taxiagency.domain.Driver;
 import com.taxiagency.domain.Passenger;
 import com.taxiagency.domain.Trip;
 
-public interface TripDao extends Dao<Trip>{
-    Trip findByRoute(String route);
-    Trip findByDriver(Driver driver);
-    Trip findByCar(Car car);
-    Trip findByPassenger(Passenger passenger);
+import java.util.List;
+
+public interface TripDao extends Dao{
+    List<Trip> findByRoute(String route);
+    List<Trip> findByDriver(Driver driver);
+    List<Trip> findByCar(Car car);
+    List<Trip> findByPassenger(Passenger passenger);
 
 }

@@ -3,7 +3,9 @@ package com.taxiagency.dao;
 import com.taxiagency.domain.Car;
 import com.taxiagency.domain.Color;
 
-public interface CarDao extends Dao<Car>{
-    Car findByNumber(String number);
-    Car findByColor(Color color);
+import java.util.List;
+
+public interface CarDao extends Dao{
+    List<Car> findByNumber(String number);
+    List<Car> findByColor(Color color);
 }
