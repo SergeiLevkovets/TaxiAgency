@@ -13,6 +13,16 @@ public class Passenger implements Entity, Serializable {
         this.mobilePhone = mobilePhone;
     }
 
+    public Passenger(String str) {
+        String[] splited = str.split(";");
+        String idPart = splited[0];
+        this.id = idPart.substring(idPart.indexOf(":")+1).trim();
+        String namePart = splited[1];
+        this.name = namePart.substring(namePart.indexOf(":")+1).trim();
+        String phonePart = splited[2];
+        this.mobilePhone = phonePart.substring(phonePart.indexOf(":")+1).trim();
+    }
+
     @Override
     public String toString() {
         return "id: " + id + "; name: '" + name +

@@ -1,7 +1,7 @@
 package com.taxiagency.domain;
 
 public enum Color {
-    BLACk,
+    BLACK,
     WHITE,
     RED,
     YELLOW

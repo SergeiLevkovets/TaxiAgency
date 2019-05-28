@@ -2,11 +2,17 @@ package com.taxiagency.dao;
 
 import com.taxiagency.domain.Passenger;
 
+import java.io.File;
 import java.util.List;
 
-public class PassangerFileDao extends FileDao implements PassengerDao {
+public class PassengerFileDao extends FileDao implements PassengerDao {
 
-    String fileName = "com/taxiagency/File/PassengerFileDao.txt";
+    private File file;
+    private String fileName = ".\\src\\com\\taxiagency\\File\\PassengerFileDao.txt";
+
+    public PassengerFileDao() {
+        file = new File(fileName);
+    }
 
     @Override
     public List<Passenger> findByName(String name) {

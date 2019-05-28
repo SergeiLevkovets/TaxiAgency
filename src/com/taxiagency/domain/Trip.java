@@ -27,16 +27,26 @@ public class Trip implements Entity, Serializable {
         this.distance = distance;
     }
 
+    public Trip(String str) {
+        String[] splited = str.split("/");
+        String idPart = splited[0];
+        this.id = idPart.substring(idPart.indexOf(":")+1).trim();
+        String routePart = splited[1];
+        this.route = routePart.substring(routePart.indexOf(":")+1).trim();
+        String driverPart = splited[2];
+        this.driver = new Driver(driverPart.trim());
+    }
+
     @Override
     public String toString() {
         return
                 "id: " + id +
-                        "; route: " + route +
-                        "; driver: " + driver +
-                        "; car: " + car +
-                        "; passenger: " + passenger +
-                        "; durationMins: " + durationMins +
-                        "; distance: " + distance;
+                        "/ route: " + route +
+                        "/ driver: " + driver +
+                        "/ car: " + car +
+                        "/ passenger: " + passenger +
+                        "/ durationMins: " + durationMins +
+                        "/ distance: " + distance;
     }
 
     public String getRoute() {

@@ -13,6 +13,16 @@ public class Car implements Entity, Serializable {
         this.number = number;
     }
 
+    public Car(String str) {
+        String[] splited = str.split(";");
+        String idPart = splited[0];
+        this.id = idPart.substring(idPart.indexOf(":")+1).trim();
+        String colorPart = splited[1];
+//        this.color = colorPart.substring(colorPart.indexOf(":")+1).trim();
+        String numberPart = splited[2];
+        this.id = numberPart.substring(numberPart.indexOf(":")+1).trim();
+    }
+
     @Override
     public String toString() {
         return "id: " + id +

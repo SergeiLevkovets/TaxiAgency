@@ -10,15 +10,11 @@ public class Main {
         Driver driver1 = new Driver("1dr", "Driver1");
         Driver driver2 = new Driver("2dr", "Driver2");
         Driver driver3 = new Driver("3dr", "Driver3");
-        Driver driver4 = new Driver("4dr", "Driver4");
-        Driver driver5 = new Driver("5dr", "Driver3");
 
         DriverRamDao driverDao = new DriverRamDao();
         driverDao.save(driver1);
         driverDao.save(driver2);
         driverDao.save(driver3);
-        driverDao.save(driver4);
-        driverDao.save(driver5);
 
         List<Driver> drivers = driverDao.findAll();
         System.out.println(drivers);
@@ -39,7 +35,7 @@ public class Main {
         System.out.println(passengerRamDao.findByPhoneRegexp("80298056637"));
         System.out.println(passengerRamDao.getRam());
 
-        Car car1 = new Car("1car", Color.BLACk, "am45271");
+        Car car1 = new Car("1car", Color.BLACK, "am45271");
         Car car2 = new Car("2car", Color.YELLOW, "am45272");
         Car car3 = new Car("3car", Color.RED, "am45273");
 
@@ -73,21 +69,21 @@ public class Main {
 
         //Сохранение в файл
 
-        FileDao<Driver> fileDao = new DriverFileDao();
+       /* FileDao<Driver> fileDao = new DriverFileDao();
         fileDao.save(driver2);
         fileDao.save(driver1);
 
         System.out.println(fileDao.findById("1dr"));
 
         System.out.println(fileDao.findAll());
-
+*/
         /*DriverFileDao driverFileDao = new DriverFileDao();
         driverFileDao.save(driver1);
 
         CarFileDao carFileDao = new CarFileDao();
         carFileDao.save(car1);
 
-        PassangerFileDao passangerFileDao = new PassangerFileDao();
+        PassengerFileDao passangerFileDao = new PassengerFileDao();
         passangerFileDao.save(passenger1);
 
         TripFileDao tripFileDao = new TripFileDao();

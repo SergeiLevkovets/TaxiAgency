@@ -12,6 +12,14 @@ public class Driver implements Entity, Serializable {
         this.name = name;
     }
 
+    public Driver(String str) {
+        String[] splited = str.split(";");
+        String idPart = splited[0];
+        this.id = idPart.substring(idPart.indexOf(":")+1).trim();
+        String namePart = splited[1];
+        this.name = namePart.substring(namePart.indexOf(":")+1).trim();
+    }
+
     @Override
     public String toString() {
         return "id: " + id + "; name: " + name;

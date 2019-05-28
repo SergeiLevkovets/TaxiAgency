@@ -9,38 +9,24 @@ import java.util.List;
 public class FileDao<T extends Entity> implements Dao<T> {
 
     private File file;
-    private String fileName = "com/taxiagency/File/FileDao.txt";
+    private String fileName = ".\\src\\com\\taxiagency\\File\\FileDao.txt";
 
     public FileDao() {
-        this.file = new File(".\\src\\com\\taxiagency\\File\\FileDao.txt");
+        this.file = new File(fileName);
     }
-
-    /*public FileDao(String fileName) {
-        this.fileName = fileName;
-        this.file = new File(this.fileName);
-        try {
-            if (!this.file.exists()) {
-                this.file.createNewFile();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     public void save(T obj) {
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+        try (FileWriter fw = new FileWriter(file, true);
+             BufferedWriter bw = new BufferedWriter(fw)
         ) {
-            List<T> list = ((List<T>) ois.readObject());
-            list.add(obj);
-            oos.writeObject(list);
+            //Записываем строку в файл
+            String str = obj.toString();
+            bw.write(str + "\n");
 
-            } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -48,52 +34,69 @@ public class FileDao<T extends Entity> implements Dao<T> {
 
     @Override
     public void update(T obj) {
-
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, true));
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr);
+             FileWriter fw = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(fw)
         ) {
-            List<T> list = ((List<T>) ois.readObject());
-            for (int i = 0; i < list.size(); i++) {
-                if (obj.getId().equals(list.get(i).getId())){
-                    list.set(i, obj);
-                    oos.writeObject(list);
-                    break;
+            //Читаем строки из файла в список
+            List<String> list = new ArrayList<>();
+            String str;
+            while ((str = br.readLine()) != null ){
+                list.add(str);
+            }
+            //Переписываем объект в списке
+            for (int i = 0, j = list.size(); i < j; i++) {
+                if (list.get(i).contains("id: " + obj.getId() + ";")){
+                    list.set(i, obj.toString());
                 }
             }
+            //Записываем список в файл
+            for (String s : list){
+                bw.write(s + "\n");
+            }
 
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void upsert(T obj) {
 
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, true));
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr);
+             FileWriter fw = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(fw)
         ) {
-            List<T> list = ((List<T>) ois.readObject());
-            for (int i = 0; i < list.size(); i++) {
-                if (obj.getId().equals(list.get(i).getId())){
-                    list.set(i, obj);
-                    oos.writeObject(list);
-                    break;
+            //Читаем строки из файла в список
+            List<String> list = new ArrayList<>();
+            String str;
+            while ((str = br.readLine()) != null ){
+                list.add(str);
+            }
+            //Переписываем объект в списке
+            Boolean contain = true;
+            for (int i = 0, j = list.size(); i < j; i++) {
+                if (list.get(i).contains("id: " + obj.getId() + ";")){
+                    list.set(i, obj.toString());
+                    contain = false;
                 }
             }
+            //Если объект не найден добовляем новый
+            if (contain){
+                list.add(obj.toString());
+            }
+            //Записываем список в файл
+            for (String s : list){
+                bw.write(s + "\n");
+            }
 
-            list.add(obj);
-            oos.writeObject(list);
-
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -102,18 +105,31 @@ public class FileDao<T extends Entity> implements Dao<T> {
     @Override
     public void delete(T obj) {
 
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, true));
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr);
+             FileWriter fw = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(fw)
         ) {
-            List<T> list = ((List<T>) ois.readObject());
-            list.remove(obj);
-            oos.writeObject(list);
+            //Читаем строки из файла в список
+            List<String> list = new ArrayList<>();
+            String str;
+            while ((str = br.readLine()) != null ){
+                list.add(str);
+            }
+            //Удаляем объект из списка
+            for (int i = 0, j = list.size(); i < j; i++) {
+                if (list.get(i).contains("id: " + obj.getId() + ";")){
+                    list.remove(i);
+                }
+            }
+            //Записываем список в файл
+            for (String s : list){
+                bw.write(s + "\n");
+            }
 
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -121,29 +137,37 @@ public class FileDao<T extends Entity> implements Dao<T> {
 
     @Override
     public T findById(String id) {
-        T t = null;
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+            T obj = null;
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr);
         ) {
-            List<T> list = ((List<T>) ois.readObject());
-            for (int i = 0; i < list.size(); i++) {
-                if (id.equals(list.get(i).getId())){
-                    t = list.get(i);
+            //Читаем строки из файла в список
+            List<String> list = new ArrayList<>();
+            String str;
+            while ((str = br.readLine()) != null ){
+                list.add(str);
+            }
+            //Ищем объект в списке
+            for (int i = 0, j = list.size(); i < j; i++) {
+                if (list.get(i).contains("id: " + id + ";")){
+                    str = list.get(i);
                 }
             }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return t;
+return null;
     }
 
     @Override
     public List<T> findAll() {
         List<T> list = null;
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
         ) {
             list = ((List<T>) ois.readObject());
 

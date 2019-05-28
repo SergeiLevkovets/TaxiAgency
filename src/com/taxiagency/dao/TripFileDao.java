@@ -5,11 +5,17 @@ import com.taxiagency.domain.Driver;
 import com.taxiagency.domain.Passenger;
 import com.taxiagency.domain.Trip;
 
+import java.io.File;
 import java.util.List;
 
 public class TripFileDao extends FileDao implements TripDao {
 
-    String fileName = "com/taxiagency/File/TripFileDao.txt";
+    private File file;
+    private String fileName = ".\\src\\com\\taxiagency\\File\\TripFileDao.txt";
+
+    public TripFileDao() {
+        file = new File(fileName);
+    }
 
     @Override
     public List<Trip> findByRoute(String route) {
