@@ -12,6 +12,7 @@ public class FileDao<T extends Entity> implements Dao<T> {
     private String fileName = ".\\src\\com\\taxiagency\\File\\FileDao.txt";
 
     public FileDao() {
+
         this.file = new File(fileName);
     }
 

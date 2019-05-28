@@ -18,7 +18,7 @@ public class Car implements Entity, Serializable {
         String idPart = splited[0];
         this.id = idPart.substring(idPart.indexOf(":")+1).trim();
         String colorPart = splited[1];
-//        this.color = colorPart.substring(colorPart.indexOf(":")+1).trim();
+        this.color = Color.valueOf(colorPart.substring(colorPart.indexOf(":")+1).trim());
         String numberPart = splited[2];
         this.id = numberPart.substring(numberPart.indexOf(":")+1).trim();
     }
