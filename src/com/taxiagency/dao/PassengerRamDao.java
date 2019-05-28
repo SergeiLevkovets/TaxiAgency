@@ -22,9 +22,9 @@ public class PassengerRamDao extends RamDao implements PassengerDao {
     public List<Passenger> findByPhoneRegexp(String phone) {
         List<Passenger> list = findAll();
         List<Passenger> Passengers = new ArrayList<>();
-        for (Passenger d : list) {
-            if (d.getMobilePhone().equals(phone)) {
-                Passengers.add(d);
+        for (Passenger passenger : list) {
+            if (passenger.getMobilePhone().equals(phone)) {
+                Passengers.add(passenger);
             }
         }
         return Passengers;

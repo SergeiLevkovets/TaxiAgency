@@ -6,6 +6,7 @@ import com.taxiagency.domain.Passenger;
 import com.taxiagency.domain.Trip;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripFileDao extends FileDao implements TripDao {
@@ -14,26 +15,55 @@ public class TripFileDao extends FileDao implements TripDao {
     private String fileName = ".\\src\\com\\taxiagency\\File\\TripFileDao.txt";
 
     public TripFileDao() {
-        file = new File(fileName);
+
+        super.setFile(new File(fileName));
     }
 
     @Override
     public List<Trip> findByRoute(String route) {
-        return null;
+        List<Trip> list = findAll();
+        List<Trip> trips = new ArrayList<>();
+        for (Trip trip : list) {
+            if (trip.getRoute().equals(route)) {
+                trips.add(trip);
+            }
+        }
+        return trips;
     }
 
     @Override
     public List<Trip> findByDriver(Driver driver) {
-        return null;
+        List<Trip> list = findAll();
+        List<Trip> Trips = new ArrayList<>();
+        for (Trip trip : list) {
+            if (trip.getDriver().equals(driver)) {
+                Trips.add(trip);
+            }
+        }
+        return Trips;
     }
 
     @Override
     public List<Trip> findByCar(Car car) {
-        return null;
+        List<Trip> list = findAll();
+        List<Trip> Trips = new ArrayList<>();
+        for (Trip trip : list) {
+            if (trip.getCar().equals(car)) {
+                Trips.add(trip);
+            }
+        }
+        return Trips;
     }
 
     @Override
     public List<Trip> findByPassenger(Passenger passenger) {
-        return null;
+        List<Trip> list = findAll();
+        List<Trip> Trips = new ArrayList<>();
+        for (Trip trip : list) {
+            if (trip.getPassenger().equals(passenger)) {
+                Trips.add(trip);
+            }
+        }
+        return Trips;
     }
 }

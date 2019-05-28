@@ -25,7 +25,7 @@ public class Passenger implements Entity, Serializable {
 
     @Override
     public String toString() {
-        return "id: " + id + "; name: '" + name +
+        return "id: " + id + "; name: " + name +
                 "; mobilePhone: " + mobilePhone;
     }
 

@@ -1,5 +1,10 @@
 package com.taxiagency.domain;
 
+import com.taxiagency.dao.CarFileDao;
+import com.taxiagency.dao.DriverFileDao;
+import com.taxiagency.dao.FileDao;
+import com.taxiagency.dao.PassengerFileDao;
+
 import java.io.Serializable;
 
 public class Trip implements Entity, Serializable {
@@ -34,11 +39,11 @@ public class Trip implements Entity, Serializable {
         String routePart = splited[1];
         this.route = routePart.substring(routePart.indexOf(":") + 1).trim();
         String driverPart = splited[2];
-        this.driver = new Driver(driverPart.trim());
+        this.driver = (Driver) new DriverFileDao().findById(driverPart.substring(driverPart.indexOf(":") + 1).trim());
         String carPart = splited[3];
-        this.car = new Car(carPart.trim());
+        this.car = (Car) new CarFileDao().findById(carPart.substring(carPart.indexOf(":") + 1).trim());
         String passengerPart = splited[4];
-        this.passenger = new Passenger(passengerPart.trim());
+        this.passenger =(Passenger) new PassengerFileDao().findById(passengerPart.substring(passengerPart.indexOf(":") + 1).trim());
         String durationMinsPart = splited[5];
         this.durationMins = Integer.parseInt(durationMinsPart.substring(durationMinsPart.indexOf(":") + 1).trim());
         String distancePart = splited[6];
@@ -50,9 +55,9 @@ public class Trip implements Entity, Serializable {
         return
                 "id: " + id +
                         "/ route: " + route +
-                        "/ driver: " + driver +
-                        "/ car: " + car +
-                        "/ passenger: " + passenger +
+                        "/ driver: " + driver.getId() +
+                        "/ car: " + car.getId() +
+                        "/ passenger: " + passenger.getId() +
                         "/ durationMins: " + durationMins +
                         "/ distance: " + distance;
     }

@@ -16,6 +16,14 @@ public class FileDao<T extends Entity> implements Dao<T> {
         this.file = new File(fileName);
     }
 
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
     @Override
     public void save(T obj) {
         try (FileWriter fw = new FileWriter(file, true);
@@ -154,8 +162,10 @@ public class FileDao<T extends Entity> implements Dao<T> {
                     str = list.get(i);
                 }
             }
+            //Создаем новый объект
 
-
+//Как создать из строки объект Т
+// ????????  obj = new T(str);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -168,16 +178,21 @@ return null;
     @Override
     public List<T> findAll() {
         List<T> list = null;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr);
         ) {
-            list = ((List<T>) ois.readObject());
+            //Читаем строки из файла в список
+            List<String> listStr = new ArrayList<>();
+            String str;
+            while ((str = br.readLine()) != null ){
+                listStr.add(str);
+            }
 
+//?????? как преобразовать в List<T>
 
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return list;

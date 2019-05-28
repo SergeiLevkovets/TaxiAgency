@@ -9,13 +9,13 @@ public class TripRamDao extends RamDao implements TripDao {
     @Override
     public List<Trip> findByRoute(String route) {
         List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
+        List<Trip> trips = new ArrayList<>();
         for (Trip trip : list) {
             if (trip.getRoute().equals(route)) {
-                Trips.add(trip);
+                trips.add(trip);
             }
         }
-        return Trips;
+        return trips;
     }
 
     @Override
