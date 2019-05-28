@@ -30,9 +30,9 @@ public class Trip implements Entity, Serializable {
     public Trip(String str) {
         String[] splited = str.split("/");
         String idPart = splited[0];
-        this.id = idPart.substring(idPart.indexOf(":")+1).trim();
+        this.id = idPart.substring(idPart.indexOf(":") + 1).trim();
         String routePart = splited[1];
-        this.route = routePart.substring(routePart.indexOf(":")+1).trim();
+        this.route = routePart.substring(routePart.indexOf(":") + 1).trim();
         String driverPart = splited[2];
         this.driver = new Driver(driverPart.trim());
         String carPart = splited[3];
@@ -40,9 +40,9 @@ public class Trip implements Entity, Serializable {
         String passengerPart = splited[4];
         this.passenger = new Passenger(passengerPart.trim());
         String durationMinsPart = splited[5];
-        this.durationMins = Integer.parseInt(durationMinsPart.substring(durationMinsPart.indexOf(":")+1).trim());
+        this.durationMins = Integer.parseInt(durationMinsPart.substring(durationMinsPart.indexOf(":") + 1).trim());
         String distancePart = splited[6];
-        this.distance = Integer.parseInt(distancePart.substring(distancePart.indexOf(":")+1).trim());
+        this.distance = Integer.parseInt(distancePart.substring(distancePart.indexOf(":") + 1).trim());
     }
 
     @Override
