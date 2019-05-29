@@ -6,12 +6,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDao<T extends Entity> implements Dao<T> {
+public abstract class FileDao<T extends Entity> implements Dao<T> {
 
-    private File file;
+    protected File file;
     private String fileName = ".\\src\\com\\taxiagency\\File\\FileDao.txt";
 
-    public FileDao() {
+    public FileDao(String fileName) {
 
         this.file = new File(fileName);
     }
@@ -19,6 +19,8 @@ public class FileDao<T extends Entity> implements Dao<T> {
     public void setFile(File file) {
         this.file = file;
     }
+
+    protected abstract T createFromString(String str);
 
     @Override
     public void save(T obj) {
@@ -72,7 +74,7 @@ public class FileDao<T extends Entity> implements Dao<T> {
     public T findById(String id) {
         T obj = null;
         List<String> list = fileRead();     //Читаем строки из файла в список
-        String str;
+        String str = "";
         for (int i = 0, j = list.size(); i < j; i++) {      //Ищем объект в списке
             if (list.get(i).contains("id: " + id + ";")) {
                 str = list.get(i);
@@ -80,8 +82,10 @@ public class FileDao<T extends Entity> implements Dao<T> {
         }
         //Создаем новый объект
 //Как создать из строки объект Т
-// ????????  obj = new T(str);
-        return null;
+// ????????
+        obj = createFromString(str);
+
+        return obj;
     }
 
     @Override
@@ -116,8 +120,6 @@ public class FileDao<T extends Entity> implements Dao<T> {
             while ((str = br.readLine()) != null) {
                 list.add(str);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

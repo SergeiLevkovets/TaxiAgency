@@ -5,6 +5,7 @@ import com.taxiagency.domain.Passenger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class PassengerFileDao extends FileDao implements PassengerDao {
 
@@ -17,25 +18,23 @@ public class PassengerFileDao extends FileDao implements PassengerDao {
 
     @Override
     public List<Passenger> findByName(String name) {
+        return find(name, Passenger::getName);
+    }
+
+    @Override
+    public List<Passenger> findByPhoneRegexp(String phone) {
+        return find(phone, Passenger::getMobilePhone);
+    }
+
+    private List<Passenger> find(String findBy, Function<Passenger, String> getData) {
         List<Passenger> list = findAll();
         List<Passenger> Passengers = new ArrayList<>();
         for (Passenger passenger : list) {
-            if (passenger.getName().equals(name)) {
+            if (getData.apply(passenger).equals(findBy)) {
                 Passengers.add(passenger);
             }
         }
         return Passengers;
     }
 
-    @Override
-    public List<Passenger> findByPhoneRegexp(String phone) {
-        List<Passenger> list = findAll();
-        List<Passenger> Passengers = new ArrayList<>();
-        for (Passenger passenger : list) {
-            if (passenger.getMobilePhone().equals(phone)) {
-                Passengers.add(passenger);
-            }
-        }
-        return Passengers;
-    }
 }

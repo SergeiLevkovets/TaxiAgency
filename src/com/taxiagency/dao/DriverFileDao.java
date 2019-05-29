@@ -1,6 +1,7 @@
 package com.taxiagency.dao;
 
 import com.taxiagency.domain.Driver;
+import com.taxiagency.domain.Entity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,6 +14,11 @@ public class DriverFileDao extends FileDao implements DriverDao {
 
     public DriverFileDao() {
         super.setFile(new File(fileName));
+    }
+
+    @Override
+    protected Entity createFromString(String str) {
+        return new Driver(str);
     }
 
     @Override

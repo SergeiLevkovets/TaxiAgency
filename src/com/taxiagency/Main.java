@@ -78,7 +78,7 @@ public class Main {
 
         //Сохранение в файл
 
-        FileDao<Driver> fileDao = new DriverFileDao();
+        FileDao<Driver> fileDao = new FileDao<>();
         fileDao.save(driver1);
         fileDao.save(driver2);
 

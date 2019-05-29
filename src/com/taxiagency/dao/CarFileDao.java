@@ -9,15 +9,13 @@ import java.util.List;
 
 public class CarFileDao extends FileDao implements CarDao {
 
-    private File file;
-    private String fileName = ".\\src\\com\\taxiagency\\File\\CarFileDao.txt";
-
     public CarFileDao() {
-        super.setFile(new File(fileName));
+        super(".\\src\\com\\taxiagency\\File\\CarFileDao.txt");
     }
 
     @Override
     public List<Car> findByNumber(String number) {
+        file.getName();
         List<Car> list = findAll();
         List<Car> cars = new ArrayList<>();
         for (Car car : list) {
