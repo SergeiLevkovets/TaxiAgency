@@ -16,53 +16,58 @@ public class FileDao<T extends Entity> implements Dao<T> {
         this.file = new File(fileName);
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public void setFile(File file) {
         this.file = file;
     }
 
     @Override
     public void save(T obj) {
-        try (FileWriter fw = new FileWriter(file, true);
-             BufferedWriter bw = new BufferedWriter(fw)
+        List<String> list = new ArrayList<>();
+        try (
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr)
         ) {
-            //Записываем строку в файл
-            String str = obj.toString();
-            bw.write(str + "\n");
-
+            //Читаем строки из файла в список
+            String str;
+            while ((str = br.readLine()) != null) {
+                list.add(str);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Проверяем наличие объекта, если находим break;
+        for (int i = 0, j = list.size(); i < j; i++) {
+            if (list.get(i).contains("id: " + obj.getId() + ";")) {
+               return;
+            }
+        }
+        //Записываем строку в файл
+        list.add(obj.toString());
 
+        try (FileWriter fw = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(fw)
+        ) {
+            //Записываем список в файл
+            for (String s : list) {
+                bw.write(s + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(T obj) {
+        List<String> list = new ArrayList<>();
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr);
-             FileWriter fw = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(fw)
         ) {
             //Читаем строки из файла в список
-            List<String> list = new ArrayList<>();
             String str;
-            while ((str = br.readLine()) != null ){
+            while ((str = br.readLine()) != null) {
                 list.add(str);
-            }
-            //Переписываем объект в списке
-            for (int i = 0, j = list.size(); i < j; i++) {
-                if (list.get(i).contains("id: " + obj.getId() + ";")){
-                    list.set(i, obj.toString());
-                }
-            }
-            //Записываем список в файл
-            for (String s : list){
-                bw.write(s + "\n");
             }
 
         } catch (FileNotFoundException e) {
@@ -70,41 +75,62 @@ public class FileDao<T extends Entity> implements Dao<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Переписываем объект в списке
+        for (int i = 0, j = list.size(); i < j; i++) {
+            if (list.get(i).contains("id: " + obj.getId() + ";")) {
+                list.set(i, obj.toString());
+            }
+        }
+
+        //Записываем список в файл
+        try ( FileWriter fw = new FileWriter(file);
+              BufferedWriter bw = new BufferedWriter(fw)
+        ){
+            for (String s : list) {
+                bw.write(s + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void upsert(T obj) {
-
+        List<String> list = new ArrayList<>();
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr);
-             FileWriter fw = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(fw)
         ) {
             //Читаем строки из файла в список
-            List<String> list = new ArrayList<>();
             String str;
-            while ((str = br.readLine()) != null ){
+            while ((str = br.readLine()) != null) {
                 list.add(str);
-            }
-            //Переписываем объект в списке
-            Boolean contain = true;
-            for (int i = 0, j = list.size(); i < j; i++) {
-                if (list.get(i).contains("id: " + obj.getId() + ";")){
-                    list.set(i, obj.toString());
-                    contain = false;
-                }
-            }
-            //Если объект не найден добовляем новый
-            if (contain){
-                list.add(obj.toString());
-            }
-            //Записываем список в файл
-            for (String s : list){
-                bw.write(s + "\n");
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Переписываем объект в списке
+        for (int i = 0, j = list.size(); i < j; i++) {
+            if (list.get(i).contains("id: " + obj.getId() + ";")) {
+                list.set(i, obj.toString());
+                return;
+            }
+        }
+        //Если объект не найден добовляем новый
+            list.add(obj.toString());
+
+        //Записываем список в файл
+        try ( FileWriter fw = new FileWriter(file);
+              BufferedWriter bw = new BufferedWriter(fw)
+        ){
+            for (String s : list) {
+                bw.write(s + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,31 +139,36 @@ public class FileDao<T extends Entity> implements Dao<T> {
 
     @Override
     public void delete(T obj) {
-
+        List<String> list = new ArrayList<>();
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr);
-             FileWriter fw = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(fw)
         ) {
             //Читаем строки из файла в список
-            List<String> list = new ArrayList<>();
             String str;
-            while ((str = br.readLine()) != null ){
+            while ((str = br.readLine()) != null) {
                 list.add(str);
-            }
-            //Удаляем объект из списка
-            for (int i = 0, j = list.size(); i < j; i++) {
-                if (list.get(i).contains("id: " + obj.getId() + ";")){
-                    list.remove(i);
-                }
-            }
-            //Записываем список в файл
-            for (String s : list){
-                bw.write(s + "\n");
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Удаляем объект из списка
+        for (int i = 0, j = list.size(); i < j; i++) {
+            if (list.get(i).contains("id: " + obj.getId() + ";")) {
+                list.remove(i);
+            }
+        }
+
+        //Записываем список в файл
+        try ( FileWriter fw = new FileWriter(file);
+              BufferedWriter bw = new BufferedWriter(fw)
+        ){
+            for (String s : list) {
+                bw.write(s + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,54 +177,58 @@ public class FileDao<T extends Entity> implements Dao<T> {
 
     @Override
     public T findById(String id) {
-            T obj = null;
+        T obj = null;
+        List<String> list = new ArrayList<>();
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr);
         ) {
             //Читаем строки из файла в список
-            List<String> list = new ArrayList<>();
             String str;
-            while ((str = br.readLine()) != null ){
+            while ((str = br.readLine()) != null) {
                 list.add(str);
             }
-            //Ищем объект в списке
-            for (int i = 0, j = list.size(); i < j; i++) {
-                if (list.get(i).contains("id: " + id + ";")){
-                    str = list.get(i);
-                }
-            }
-            //Создаем новый объект
-
-//Как создать из строки объект Т
-// ????????  obj = new T(str);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-return null;
+
+        //Ищем объект в списке
+        String str;
+        for (int i = 0, j = list.size(); i < j; i++) {
+            if (list.get(i).contains("id: " + id + ";")) {
+                str = list.get(i);
+            }
+        }
+        //Создаем новый объект
+
+//Как создать из строки объект Т
+// ????????  obj = new T(str);
+        return null;
     }
 
     @Override
     public List<T> findAll() {
         List<T> list = null;
+        List<String> listObj = new ArrayList<>();
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr);
         ) {
             //Читаем строки из файла в список
-            List<String> listStr = new ArrayList<>();
             String str;
-            while ((str = br.readLine()) != null ){
-                listStr.add(str);
+            while ((str = br.readLine()) != null) {
+                listObj.add(str);
             }
-
-//?????? как преобразовать в List<T>
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+//?????? как преобразовать в List<T>
+        for (String s : listObj){
+
         }
         return list;
     }

@@ -8,7 +8,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Driver driver1 = new Driver("1dr", "Driver1");
-        Driver driver2 = new Driver("2dr", "Driver2");
+        Driver driver2 = new Driver("2dr", "Driver2Upsert");
         Driver driver3 = new Driver("3dr", "Driver3");
 
 /*
@@ -79,8 +79,8 @@ public class Main {
         //Сохранение в файл
 
         FileDao<Driver> fileDao = new DriverFileDao();
-        fileDao.save(driver2);
         fileDao.save(driver1);
+        fileDao.save(driver2);
 
 //        System.out.println(fileDao.findById("1dr"));
 //        System.out.println(fileDao.findAll());
@@ -100,6 +100,6 @@ public class Main {
         TripFileDao tripFileDao = new TripFileDao();
         tripFileDao.save(trip1);
         tripFileDao.save(trip2);
-        
+
     }
 }

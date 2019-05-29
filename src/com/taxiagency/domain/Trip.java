@@ -33,7 +33,7 @@ public class Trip implements Entity, Serializable {
     }
 
     public Trip(String str) {
-        String[] splited = str.split("/");
+        String[] splited = str.split(";");
         String idPart = splited[0];
         this.id = idPart.substring(idPart.indexOf(":") + 1).trim();
         String routePart = splited[1];
@@ -54,12 +54,12 @@ public class Trip implements Entity, Serializable {
     public String toString() {
         return
                 "id: " + id +
-                        "/ route: " + route +
-                        "/ driver: " + driver.getId() +
-                        "/ car: " + car.getId() +
-                        "/ passenger: " + passenger.getId() +
-                        "/ durationMins: " + durationMins +
-                        "/ distance: " + distance;
+                        "; route: " + route +
+                        "; driver: " + driver.getId() +
+                        "; car: " + car.getId() +
+                        "; passenger: " + passenger.getId() +
+                        "; durationMins: " + durationMins +
+                        "; distance: " + distance;
     }
 
     public String getRoute() {

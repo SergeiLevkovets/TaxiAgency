@@ -1,4 +1,2 @@
-id: 1t/ route: Minsk/ driver: id: 1dr; name: Driver1/ car: id: 1car; color: BLACK; number: am45271/ passenger: id: 1pas; name: 'Passenger1; mobilePhone: 80298056637/ durationMins: 10/ distance: 10
-id: 2t/ route: Pinsk/ driver: id: 2dr; name: Driver2/ car: id: 2car; color: YELLOW; number: am45272/ passenger: id: 2pas; name: 'Passenger2; mobilePhone: 80298056638/ durationMins: 70/ distance: 100
-id: 1t/ route: Minsk/ driver: 1dr/ car: 1car/ passenger: 1pas/ durationMins: 10/ distance: 10
-id: 2t/ route: Pinsk/ driver: 2dr/ car: 2car/ passenger: 2pas/ durationMins: 70/ distance: 100
+id: 1t; route: Minsk; driver: 1dr; car: 1car; passenger: 1pas; durationMins: 10; distance: 10
+id: 2t; route: Pinsk; driver: 2dr; car: 2car; passenger: 2pas; durationMins: 70; distance: 100
