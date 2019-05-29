@@ -22,89 +22,63 @@ public class FileDao<T extends Entity> implements Dao<T> {
 
     @Override
     public void save(T obj) {
-        //Читаем строки из файла в список
-        List<String> list = fileRead();
-        //Проверяем наличие объекта, если находим break;
-        for (int i = 0, j = list.size(); i < j; i++) {
+        List<String> list = fileRead(); //Читаем строки из файла в список
+        for (int i = 0, j = list.size(); i < j; i++) {            //Проверяем наличие объекта, если находим break;
             if (list.get(i).contains("id: " + obj.getId() + ";")) {
-               return;
+                return;
             }
         }
-        //Записываем строку в файл
-        list.add(obj.toString());
-
-        //Записываем список в файл
-        fileWrite(list);
+        list.add(obj.toString());   //Записываем строку в файл
+        fileWrite(list);    //Записываем список в файл
     }
 
     @Override
     public void update(T obj) {
-        //Читаем строки из файла в список
-        List<String> list = fileRead();
-
-        //Переписываем объект в списке
-        for (int i = 0, j = list.size(); i < j; i++) {
+        List<String> list = fileRead();      //Читаем строки из файла в список
+        for (int i = 0, j = list.size(); i < j; i++) {      //Переписываем объект в списке
             if (list.get(i).contains("id: " + obj.getId() + ";")) {
                 list.set(i, obj.toString());
             }
         }
-
-        //Записываем список в файл
-        fileWrite(list);
+        fileWrite(list);        //Записываем список в файл
     }
 
     @Override
     public void upsert(T obj) {
-        //Читаем строки из файла в список
-        List<String> list = fileRead();
-
-        //Переписываем объект в списке
-        for (int i = 0, j = list.size(); i < j; i++) {
+        List<String> list = fileRead();     //Читаем строки из файла в список
+        for (int i = 0, j = list.size(); i < j; i++) {       //Переписываем объект в списке
             if (list.get(i).contains("id: " + obj.getId() + ";")) {
                 list.set(i, obj.toString());
                 return;
             }
         }
-        //Если объект не найден добовляем новый
-            list.add(obj.toString());
-
-        //Записываем список в файл
-        fileWrite(list);
+        list.add(obj.toString());   //Если объект не найден добовляем новый
+        fileWrite(list);    //Записываем список в файл
 
     }
 
     @Override
     public void delete(T obj) {
-        //Читаем строки из файла в список
-        List<String> list = fileRead();
-
-        //Удаляем объект из списка
-        for (int i = 0, j = list.size(); i < j; i++) {
+        List<String> list = fileRead();     //Читаем строки из файла в список
+        for (int i = 0, j = list.size(); i < j; i++) {      //Удаляем объект из списка
             if (list.get(i).contains("id: " + obj.getId() + ";")) {
                 list.remove(i);
             }
         }
-
-        //Записываем список в файл
-        fileWrite(list);
-
+        fileWrite(list);    //Записываем список в файл
     }
 
     @Override
     public T findById(String id) {
         T obj = null;
-        //Читаем строки из файла в список
-        List<String> list = fileRead();
-
-        //Ищем объект в списке
+        List<String> list = fileRead();     //Читаем строки из файла в список
         String str;
-        for (int i = 0, j = list.size(); i < j; i++) {
+        for (int i = 0, j = list.size(); i < j; i++) {      //Ищем объект в списке
             if (list.get(i).contains("id: " + id + ";")) {
                 str = list.get(i);
             }
         }
         //Создаем новый объект
-
 //Как создать из строки объект Т
 // ????????  obj = new T(str);
         return null;
@@ -113,19 +87,18 @@ public class FileDao<T extends Entity> implements Dao<T> {
     @Override
     public List<T> findAll() {
         List<T> list = null;
-        //Читаем строки из файла в список
-        List<String> listObj = fileRead();
+        List<String> listObj = fileRead();      //Читаем строки из файла в список
 //?????? как преобразовать в List<T>
-        for (String s : listObj){
+        for (String s : listObj) {
 
         }
         return list;
     }
 
-    private void fileWrite(List<String> list){
-        try ( FileWriter fw = new FileWriter(file);
-              BufferedWriter bw = new BufferedWriter(fw)
-        ){
+    private void fileWrite(List<String> list) {
+        try (FileWriter fw = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(fw)
+        ) {
             for (String s : list) {
                 bw.write(s + "\n");
             }
@@ -134,7 +107,7 @@ public class FileDao<T extends Entity> implements Dao<T> {
         }
     }
 
-    private  List<String> fileRead(){
+    private List<String> fileRead() {
         List<String> list = new ArrayList<>();
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr);

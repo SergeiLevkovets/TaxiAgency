@@ -21,7 +21,6 @@ public class CarRamDao extends RamDao implements CarDao {
 
     @Override
     public List<Car> findByColor(Color color) {
-
         List<Car> list = findAll();
         List<Car> cars = new ArrayList<>();
         for (Car car : list) {

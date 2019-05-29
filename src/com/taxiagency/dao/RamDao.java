@@ -48,6 +48,7 @@ public class RamDao<T extends Entity> implements Dao<T> {
         return list;
     }
 
+
     public Map<String, T> getRam() {
         return ram;
     }

@@ -1,5 +1,7 @@
 package com.taxiagency.domain;
 
+import com.taxiagency.dao.Find;
+
 import java.io.Serializable;
 
 public class Driver implements Entity, Serializable {
