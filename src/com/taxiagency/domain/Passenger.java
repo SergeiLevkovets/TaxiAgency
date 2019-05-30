@@ -1,6 +1,7 @@
 package com.taxiagency.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Passenger implements Entity, Serializable {
     private String id;
@@ -53,5 +54,20 @@ public class Passenger implements Entity, Serializable {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return Objects.equals(id, passenger.id) &&
+                Objects.equals(name, passenger.name) &&
+                Objects.equals(mobilePhone, passenger.mobilePhone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, mobilePhone);
     }
 }

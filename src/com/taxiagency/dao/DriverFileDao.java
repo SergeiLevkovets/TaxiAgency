@@ -9,11 +9,10 @@ import java.util.List;
 
 public class DriverFileDao extends FileDao implements DriverDao {
 
-    private File file;
-    private String fileName = ".\\src\\com\\taxiagency\\File\\DriverFileDao.txt";
+
 
     public DriverFileDao() {
-        super.setFile(new File(fileName));
+        super(".\\src\\com\\taxiagency\\File\\DriverFileDao.txt");
     }
 
     @Override

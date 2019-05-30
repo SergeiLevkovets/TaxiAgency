@@ -1,5 +1,6 @@
 package com.taxiagency.dao;
 
+import com.taxiagency.domain.Entity;
 import com.taxiagency.domain.Passenger;
 
 import java.io.File;
@@ -7,13 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class PassengerFileDao extends FileDao implements PassengerDao {
-
-    private File file;
-    private String fileName = ".\\src\\com\\taxiagency\\File\\PassengerFileDao.txt";
+public class PassengerFileDao extends FileDao implements PassengerDao{
 
     public PassengerFileDao() {
-        super.setFile(new File(fileName));
+        super(".\\src\\com\\taxiagency\\File\\PassengerFileDao.txt");
+    }
+
+    @Override
+    protected Entity createFromString(String str) {
+        return new Passenger(str);
     }
 
     @Override
@@ -28,13 +31,12 @@ public class PassengerFileDao extends FileDao implements PassengerDao {
 
     private List<Passenger> find(String findBy, Function<Passenger, String> getData) {
         List<Passenger> list = findAll();
-        List<Passenger> Passengers = new ArrayList<>();
+        List<Passenger> passengers = new ArrayList<>();
         for (Passenger passenger : list) {
             if (getData.apply(passenger).equals(findBy)) {
-                Passengers.add(passenger);
+                passengers.add(passenger);
             }
         }
-        return Passengers;
+        return passengers;
     }
-
 }

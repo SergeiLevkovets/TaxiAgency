@@ -4,7 +4,7 @@ import com.taxiagency.domain.Entity;
 
 import java.util.List;
 
-public interface Dao<T extends Entity> {
+public interface Dao<T extends Entity>  extends Find{
     void save(T obj);
 
     void update(T obj);

@@ -78,28 +78,42 @@ public class Main {
 
         //Сохранение в файл
 
-        FileDao<Driver> fileDao = new FileDao<>();
-        fileDao.save(driver1);
-        fileDao.save(driver2);
-
 //        System.out.println(fileDao.findById("1dr"));
 //        System.out.println(fileDao.findAll());
 
         DriverFileDao driverFileDao = new DriverFileDao();
         driverFileDao.save(driver1);
         driverFileDao.save(driver2);
+        driverFileDao.save(driver3);
+
+        /*List<Driver> drivers = driverFileDao.findAll();
+        System.out.println(drivers);
+        System.out.println(driverFileDao.findByName("Driver3"));
+        System.out.println(driverFileDao.findById("2dr"));*/
+
+
 
         CarFileDao carFileDao = new CarFileDao();
         carFileDao.save(car1);
         carFileDao.save(car2);
+        carFileDao.save(car3);
 
         PassengerFileDao passangerFileDao = new PassengerFileDao();
         passangerFileDao.save(passenger1);
         passangerFileDao.save(passenger2);
+        passangerFileDao.save(passenger3);
 
         TripFileDao tripFileDao = new TripFileDao();
         tripFileDao.save(trip1);
         tripFileDao.save(trip2);
+        tripFileDao.save(trip3);
+
+        List<Trip> trips = tripFileDao.findAll();
+        System.out.println(trips);
+        System.out.println(tripFileDao.findByCar(car2));
+        System.out.println(tripFileDao.findByDriver(driver2));
+        System.out.println(tripFileDao.findByPassenger(passenger1));
+        System.out.println(tripFileDao.findById("3t"));
 
     }
 }

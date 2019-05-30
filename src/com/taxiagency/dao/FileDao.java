@@ -6,18 +6,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FileDao<T extends Entity> implements Dao<T> {
+public abstract class FileDao<T extends Entity> implements Dao<T>{
 
     protected File file;
-    private String fileName = ".\\src\\com\\taxiagency\\File\\FileDao.txt";
+//    private String fileName = ".\\src\\com\\taxiagency\\File\\FileDao.txt";
 
     public FileDao(String fileName) {
 
         this.file = new File(fileName);
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
     protected abstract T createFromString(String str);
@@ -72,7 +68,6 @@ public abstract class FileDao<T extends Entity> implements Dao<T> {
 
     @Override
     public T findById(String id) {
-        T obj = null;
         List<String> list = fileRead();     //Читаем строки из файла в список
         String str = "";
         for (int i = 0, j = list.size(); i < j; i++) {      //Ищем объект в списке
@@ -80,21 +75,18 @@ public abstract class FileDao<T extends Entity> implements Dao<T> {
                 str = list.get(i);
             }
         }
-        //Создаем новый объект
-//Как создать из строки объект Т
-// ????????
-        obj = createFromString(str);
+        T obj = createFromString(str);    //Создаем новый объект
 
         return obj;
     }
 
     @Override
     public List<T> findAll() {
-        List<T> list = null;
+        List<T> list = new ArrayList<>();
         List<String> listObj = fileRead();      //Читаем строки из файла в список
-//?????? как преобразовать в List<T>
         for (String s : listObj) {
-
+            if (s == ""){break;}
+            list.add(createFromString(s));      //Создаем список
         }
         return list;
     }

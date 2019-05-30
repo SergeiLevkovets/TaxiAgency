@@ -1,9 +1,6 @@
 package com.taxiagency.dao;
 
-import com.taxiagency.domain.Car;
-import com.taxiagency.domain.Driver;
-import com.taxiagency.domain.Passenger;
-import com.taxiagency.domain.Trip;
+import com.taxiagency.domain.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,12 +8,13 @@ import java.util.List;
 
 public class TripFileDao extends FileDao implements TripDao {
 
-    private File file;
-    private String fileName = ".\\src\\com\\taxiagency\\File\\TripFileDao.txt";
-
     public TripFileDao() {
+        super(".\\src\\com\\taxiagency\\File\\TripFileDao.txt");
+    }
 
-        super.setFile(new File(fileName));
+    @Override
+    protected Entity createFromString(String str) {
+        return new Trip(str);
     }
 
     @Override
@@ -66,4 +64,5 @@ public class TripFileDao extends FileDao implements TripDao {
         }
         return Trips;
     }
+
 }

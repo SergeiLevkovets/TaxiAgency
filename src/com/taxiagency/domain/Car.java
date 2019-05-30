@@ -1,6 +1,7 @@
 package com.taxiagency.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Car implements Entity, Serializable {
     private String id;
@@ -20,7 +21,7 @@ public class Car implements Entity, Serializable {
         String colorPart = splited[1];
         this.color = Color.valueOf(colorPart.substring(colorPart.indexOf(":")+1).trim());
         String numberPart = splited[2];
-        this.id = numberPart.substring(numberPart.indexOf(":")+1).trim();
+        this.number = numberPart.substring(numberPart.indexOf(":")+1).trim();
     }
 
     @Override
@@ -54,5 +55,20 @@ public class Car implements Entity, Serializable {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return Objects.equals(id, car.id) &&
+                color == car.color &&
+                Objects.equals(number, car.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, color, number);
     }
 }

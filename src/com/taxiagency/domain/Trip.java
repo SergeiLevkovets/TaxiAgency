@@ -6,6 +6,7 @@ import com.taxiagency.dao.FileDao;
 import com.taxiagency.dao.PassengerFileDao;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Trip implements Entity, Serializable {
     private String id;
@@ -118,5 +119,24 @@ public class Trip implements Entity, Serializable {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return durationMins == trip.durationMins &&
+                distance == trip.distance &&
+                Objects.equals(id, trip.id) &&
+                Objects.equals(route, trip.route) &&
+                Objects.equals(driver, trip.driver) &&
+                Objects.equals(car, trip.car) &&
+                Objects.equals(passenger, trip.passenger);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, route, driver, car, passenger, durationMins, distance);
     }
 }

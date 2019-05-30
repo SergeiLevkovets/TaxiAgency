@@ -1,21 +1,22 @@
 package com.taxiagency.dao;
 
-import com.taxiagency.domain.Car;
 import com.taxiagency.domain.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
-public class Finding<K extends Entity, J>  {
-    public List<K> findBy(J obj, Find find) {
-//        List<K> list = findAll();
-        List<K> kList = new ArrayList<>();
-        /*J j = k.find;
-        for (K k : list) {
-            if (j.equals(obj)) {
-                kList.add(k);
+public  class Finding<T extends Entity, J> implements Find  {
+
+
+    private List<T> find(List<T> list, J findBy, Function<T, J> getData) {
+//        List<T> list = findAll();
+        List<T> ts = new ArrayList<>();
+        for (T passenger : list) {
+            if (getData.apply(passenger).equals(findBy)) {
+                ts.add(passenger);
             }
-        }*/
-        return kList;
+        }
+        return ts;
     }
 }
