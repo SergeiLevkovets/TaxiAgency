@@ -8,14 +8,14 @@ package com.taxiagency.dao;
         import java.util.List;
         import java.util.function.Function;
 
-public class PassengerFileDao extends FileDao implements PassengerDao{
+public class PassengerFileDao extends FileDao<Passenger> implements PassengerDao{
 
     public PassengerFileDao() {
         super(".\\src\\com\\taxiagency\\File\\PassengerFileDao.txt");
     }
 
     @Override
-    protected Entity createFromString(String str) {
+    protected Passenger createFromString(String str) {
         return new Passenger(str);
     }
 

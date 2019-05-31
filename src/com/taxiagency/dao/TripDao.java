@@ -4,7 +4,7 @@ import com.taxiagency.domain.*;
 
 import java.util.List;
 
-public interface TripDao extends Dao {
+public interface TripDao extends Dao<Trip> {
 
     List<Trip> findByRoute(String route);
 

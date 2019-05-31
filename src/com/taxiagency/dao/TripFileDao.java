@@ -6,63 +6,39 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripFileDao extends FileDao implements TripDao {
+public class TripFileDao extends FileDao<Trip> implements TripDao {
 
     public TripFileDao() {
         super(".\\src\\com\\taxiagency\\File\\TripFileDao.txt");
     }
 
     @Override
-    protected Entity createFromString(String str) {
+    protected Trip createFromString(String str) {
         return new Trip(str);
     }
 
     @Override
     public List<Trip> findByRoute(String route) {
-        List<Trip> list = findAll();
-        List<Trip> trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getRoute().equals(route)) {
-                trips.add(trip);
-            }
-        }
-        return trips;
+        Finding<Trip, String> finding = new Finding<>();
+        return finding.find(findAll(), route, Trip::getRoute);
     }
 
     @Override
     public List<Trip> findByDriver(Driver driver) {
-        List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getDriver().equals(driver)) {
-                Trips.add(trip);
-            }
-        }
-        return Trips;
+        Finding<Trip, Driver> finding = new Finding<>();
+        return finding.find(findAll(), driver, Trip::getDriver);
     }
 
     @Override
     public List<Trip> findByCar(Car car) {
-        List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getCar().equals(car)) {
-                Trips.add(trip);
-            }
-        }
-        return Trips;
+        Finding<Trip, Car> finding = new Finding<>();
+        return finding.find(findAll(), car, Trip::getCar);
     }
 
     @Override
     public List<Trip> findByPassenger(Passenger passenger) {
-        List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getPassenger().equals(passenger)) {
-                Trips.add(trip);
-            }
-        }
-        return Trips;
+        Finding<Trip, Passenger> finding = new Finding<>();
+        return finding.find(findAll(), passenger, Trip::getPassenger);
     }
 
 }

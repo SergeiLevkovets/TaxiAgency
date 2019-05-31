@@ -22,14 +22,14 @@ public class DriverFileDao extends FileDao<Driver> implements DriverDao {
 
     @Override
     public List<Driver> findByName(String name) {
-        Finding<Driver, String> finding = new Finding<>();
+        Finding<Driver, String> finding = new Finding<>();          //  Стало
         return finding.find(findAll(), name, Driver::getName);
     }
 
     /*@Override
     public List<Driver> findByName(String name) {
         List<Driver> list = findAll();
-        List<Driver> drivers = new ArrayList<>();
+        List<Driver> drivers = new ArrayList<>();     //  Было
         for (Driver driver : list) {
             if (driver.getName().equals(name)) {
                 drivers.add(driver);

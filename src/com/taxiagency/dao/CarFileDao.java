@@ -9,40 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class CarFileDao extends FileDao implements CarDao {
+public class CarFileDao extends FileDao<Car> implements CarDao {
 
     public CarFileDao() {
         super(".\\src\\com\\taxiagency\\File\\CarFileDao.txt");
     }
 
     @Override
-    protected Entity createFromString(String str) {
+    protected Car createFromString(String str) {
         return new Car(str);
     }
 
     @Override
     public List<Car> findByNumber(String number) {
-        file.getName();
-        List<Car> list = findAll();
-        List<Car> cars = new ArrayList<>();
-        for (Car car : list) {
-            if (car.getNumber().equals(number)) {
-                cars.add(car);
-            }
-        }
-        return cars;
+        Finding<Car, String> finding = new Finding<>();
+        return finding.find(findAll(), number, Car::getNumber);
     }
 
     @Override
     public List<Car> findByColor(Color color) {
-        List<Car> list = findAll();
-        List<Car> cars = new ArrayList<>();
-        for (Car car : list) {
-            if (car.getColor().equals(color)) {
-                cars.add(car);
-            }
-        }
-        return cars;
+        Finding<Car, Color> finding = new Finding<>();
+        return finding.find(findAll(), color, Car::getColor);
     }
 
 

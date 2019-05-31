@@ -10,7 +10,6 @@ public  class Finding<T extends Entity, J>   {
 
 
     public List<T> find(List<T> list, J findBy, Function<T, J> getData) {
-//       List<T> list = findAll();
         List<T> ts = new ArrayList<>();
         for (T passenger : list) {
             if (getData.apply(passenger).equals(findBy)) {

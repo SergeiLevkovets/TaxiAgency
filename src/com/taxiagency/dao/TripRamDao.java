@@ -5,52 +5,28 @@ import com.taxiagency.domain.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripRamDao extends RamDao implements TripDao {
+public class TripRamDao extends RamDao<Trip> implements TripDao {
     @Override
     public List<Trip> findByRoute(String route) {
-        List<Trip> list = findAll();
-        List<Trip> trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getRoute().equals(route)) {
-                trips.add(trip);
-            }
-        }
-        return trips;
+        Finding<Trip, String> finding = new Finding<>();
+        return finding.find(findAll(), route, Trip::getRoute);
     }
 
     @Override
     public List<Trip> findByDriver(Driver driver) {
-        List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getDriver().equals(driver)) {
-                Trips.add(trip);
-            }
-        }
-        return Trips;
+        Finding<Trip, Driver> finding = new Finding<>();
+        return finding.find(findAll(), driver, Trip::getDriver);
     }
 
     @Override
     public List<Trip> findByCar(Car car) {
-        List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getCar().equals(car)) {
-                Trips.add(trip);
-            }
-        }
-        return Trips;
+        Finding<Trip, Car> finding = new Finding<>();
+        return finding.find(findAll(), car, Trip::getCar);
     }
 
     @Override
     public List<Trip> findByPassenger(Passenger passenger) {
-        List<Trip> list = findAll();
-        List<Trip> Trips = new ArrayList<>();
-        for (Trip trip : list) {
-            if (trip.getPassenger().equals(passenger)) {
-                Trips.add(trip);
-            }
-        }
-        return Trips;
+        Finding<Trip, Passenger> finding = new Finding<>();
+        return finding.find(findAll(), passenger, Trip::getPassenger);
     }
 }

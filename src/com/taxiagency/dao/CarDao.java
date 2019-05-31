@@ -5,7 +5,7 @@ import com.taxiagency.domain.Color;
 
 import java.util.List;
 
-public interface CarDao extends Dao {
+public interface CarDao extends Dao<Car> {
 
     List<Car> findByNumber(String number);
 
