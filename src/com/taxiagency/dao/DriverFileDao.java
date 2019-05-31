@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverFileDao extends FileDao implements DriverDao {
+public class DriverFileDao extends FileDao<Driver> implements DriverDao {
 
 
 
@@ -16,11 +16,17 @@ public class DriverFileDao extends FileDao implements DriverDao {
     }
 
     @Override
-    protected Entity createFromString(String str) {
+    protected Driver createFromString(String str) {
         return new Driver(str);
     }
 
     @Override
+    public List<Driver> findByName(String name) {
+        Finding<Driver, String> finding = new Finding<>();
+        return finding.find(findAll(), name, Driver::getName);
+    }
+
+    /*@Override
     public List<Driver> findByName(String name) {
         List<Driver> list = findAll();
         List<Driver> drivers = new ArrayList<>();
@@ -30,5 +36,5 @@ public class DriverFileDao extends FileDao implements DriverDao {
             }
         }
         return drivers;
-    }
+    }*/
 }

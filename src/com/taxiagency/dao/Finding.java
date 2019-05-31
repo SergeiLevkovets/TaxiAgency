@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public  class Finding<T extends Entity, J> implements Find  {
+public  class Finding<T extends Entity, J>   {
 
 
-    private List<T> find(List<T> list, J findBy, Function<T, J> getData) {
-//        List<T> list = findAll();
+    public List<T> find(List<T> list, J findBy, Function<T, J> getData) {
+//       List<T> list = findAll();
         List<T> ts = new ArrayList<>();
         for (T passenger : list) {
             if (getData.apply(passenger).equals(findBy)) {
